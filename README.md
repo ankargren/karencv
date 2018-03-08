@@ -1,6 +1,6 @@
 # LaTeX Template for Academic CV Following Dr. Karen's Rules
 
-This is a work in progress of a `LaTeX` class which makes it easy to construct an Academic CV which follows (Dr. Karen's Rules of the Academic CV)[https://theprofessorisin.com/2016/08/19/dr-karens-rules-of-the-academic-cv/]. Some rules which are implemented:
+This is a work in progress of a `LaTeX` class which makes it easy to construct an Academic CV which follows [Dr. Karen's Rules of the Academic CV](https://theprofessorisin.com/2016/08/19/dr-karens-rules-of-the-academic-cv/). Some rules which are implemented:
 
 - One inch margins on all four sides.
 - 12 point font throughout (name larger; "curriculum vitae" placed underneath in 12 pt -- if date is desired, can be included here)
