@@ -1,0 +1,495 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2018 Sebastian Ankargren
+% -----------------------------------
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in:
+%
+%    http://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% \fi
+%
+% \iffalse
+%<package>\NeedsTeXFormat{LaTeX2e}
+%<package>\ProvidesPackage{statmath}
+%<package>[2018/03/08 v0.1 Statistical notation and mathematics]
+%
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage{statmath}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+\DocInput{statmath.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+% {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%  Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%  Digits        \0\1\2\3\4\5\6\7\8\9
+%  Exclamation   \!     Double quote  \"     Hash (number) \#
+%  Dollar        \$     Percent       \%     Ampersand     \&
+%  Acute accent  \'     Left paren    \(     Right paren   \)
+%  Asterisk      \*     Plus          \+     Comma         \,
+%  Minus         \-     Point         \.     Solidus       \/
+%  Colon         \:     Semicolon     \;     Less than     \<
+%  Equals        \=     Greater than  \>     Question mark \?
+%  Commercial at \@     Left bracket  \[     Backslash     \\
+%  Right bracket \]     Circumflex    \^     Underscore    \_
+%  Grave accent  \`     Left brace    \{     Vertical bar  \|
+%  Right brace   \}     Tilde         \~}
+%
+%
+% \changes{v1.0}{2018/03/08}{Initial version}
+%
+% \GetFileInfo{statmath.sty}
+%
+% \DoNotIndex{\#}
+%
+% \title{The \textsf{statmath} package\thanks{This document
+%   corresponds to \textsf{statmath}~\fileversion,
+%   dated \filedate.}}
+% \author{Sebastian Ankargren\\ \texttt{sebastian.ankargren@statistics.uu.se}}
+%
+% \maketitle
+%
+% \begin{abstract}
+%   Applied and theoretical papers in statistics usually contain a number of notational conventions which are currently lacking in the popular |amsmath| package. This package provides commands for such standard statistical-mathematical language, including bold Roman and Greek letters, convergence symbols, matrix operations. 
+% \end{abstract}
+%
+% \section{Introduction}
+%
+% Applied and theoretical papers in statistics usually contain a number of notational conventions which are currently lacking in the popular |amsmath| package. The seasoned \LaTeX{} user will see that the provided commands are simple, almost trivial, but will hopefully offer less cluttered preambles as well as a welcome help for novice users.
+%
+% \section{Usage}
+%
+% \DescribeMacro{\bfA}
+% Capital Roman letter: $\bfA$\\
+% \DescribeMacro{\bfa}
+% Lower-case Roman letter: $\bfa$\\
+% \DescribeMacro{\bfGamma}
+% Capital Greek letter: $\bfGamma$\\
+% \DescribeMacro{\bfalpha}
+% Lower-case Greek letter: $\bfalpha$\\
+% \DescribeMacro{\bfzero}
+% Bold zero: $\bfzero$\\
+% \DescribeMacro{\cov}
+% Covariance: $\cov(X, Y)$\\
+% \DescribeMacro{\E}
+% Expectation: $\E(X)$\\
+% \DescribeMacro{\V}
+% Variance: $\V(X)$\\
+% \DescribeMacro{\inas}
+% Convergence almost surely: $X_n \inas X$\\
+% \DescribeMacro{\inprob}
+% Convergence in probability: $X_n \inprob X$\\
+% \DescribeMacro{\indist}
+% Convergence in distribution: $X_n \indist X$\\
+% \DescribeMacro{\plim}
+% Probability limit: $\plim X_n = X$\\
+% \DescribeMacro{\tr}
+% Trace of matrix: $\tr(\bfA)$\\
+% \DescribeMacro{\vc}
+% Vectorization of matrix: $\vc(\bfA)$\\
+% \DescribeMacro{\vcs}
+% Strict half-vectorization of matrix: $\vcs(\bfA)$\\
+% \DescribeMacro{\vch}
+% Half-vectorization of matrix: $\vch(\bfA)$\\
+% \DescribeMacro{\diag}
+% Diagonal of matrix: $\diag(\bfA)$\\
+% \DescribeMacro{\argmin}
+% Minimize argument: $\hat{\theta}=\argmin_{\theta\in\Theta}f(\theta)$\\
+% \DescribeMacro{\argmax}
+% Maximize argument: $\hat{\theta}=\argmax_{\theta\in\Theta}f(\theta)$\\
+%
+% \StopEventually{\PrintIndex}
+%
+% \section{Implementation}
+% The default is to use |\mathbf| for Roman letters and |\boldsymbol| for Greek letters. Both can be changed (individually) to |\bm|. 
+%    \begin{macrocode}
+\RequirePackage{amsmath}
+\RequirePackage{bm}%
+
+\DeclareOption{abcbm}{%
+   \let\abcbf\bm%
+}
+\DeclareOption{greekbm}{%
+   \let\greekbf\bm%
+}
+\DeclareOption{abcbf}{%
+ \let\abcbf\mathbf%
+}
+\DeclareOption{greekbs}{%
+ \let\greekbf\boldsymbol%
+}
+
+\ExecuteOptions{abcbf,greekbs}
+ 
+\ProcessOptions\relax
+%    \end{macrocode}
+% \clearpage
+% \subsection{Bold letters and symbols}
+%    \begin{macro}{\bfA}
+%    \begin{macro}{\bfB}
+%    \begin{macro}{\bfC}
+%    \begin{macro}{\bfD}
+%    \begin{macro}{\bfE}
+%    \begin{macro}{\bfF}
+%    \begin{macro}{\bfG}
+%    \begin{macro}{\bfH}
+%    \begin{macro}{\bfI}
+%    \begin{macro}{\bfJ}
+%    \begin{macro}{\bfK}
+%    \begin{macro}{\bfL}
+%    \begin{macro}{\bfM}
+%    \begin{macro}{\bfN}
+%    \begin{macro}{\bfO}
+%    \begin{macro}{\bfP}
+%    \begin{macro}{\bfQ}
+%    \begin{macro}{\bfR}
+%    \begin{macro}{\bfS}
+%    \begin{macro}{\bfT}
+%    \begin{macro}{\bfU}
+%    \begin{macro}{\bfV}
+%    \begin{macro}{\bfW}
+%    \begin{macro}{\bfX}
+%    \begin{macro}{\bfY}
+%    \begin{macro}{\bfZ}
+% Capital letters are obtained by |\bfA|, |\bfB|, etc. The command |\abcbf| is either |\textbf| or |\bm|, depending on options |abcbf| or |abcbm|. 
+%    \begin{macrocode}
+\newcommand{\bfA}{\abcbf A}
+\newcommand{\bfB}{\abcbf B}
+\newcommand{\bfC}{\abcbf C}
+\newcommand{\bfD}{\abcbf D}
+\newcommand{\bfE}{\abcbf E}
+\newcommand{\bfF}{\abcbf F}
+\newcommand{\bfG}{\abcbf G}
+\newcommand{\bfH}{\abcbf H}
+\newcommand{\bfI}{\abcbf I}
+\newcommand{\bfJ}{\abcbf J}
+\newcommand{\bfK}{\abcbf K}
+\newcommand{\bfL}{\abcbf L}
+\newcommand{\bfM}{\abcbf M}
+\newcommand{\bfN}{\abcbf N}
+\newcommand{\bfO}{\abcbf O}
+\newcommand{\bfP}{\abcbf P}
+\newcommand{\bfQ}{\abcbf Q}
+\newcommand{\bfR}{\abcbf R}
+\newcommand{\bfS}{\abcbf S}
+\newcommand{\bfT}{\abcbf T}
+\newcommand{\bfU}{\abcbf U}
+\newcommand{\bfV}{\abcbf V}
+\newcommand{\bfW}{\abcbf W}
+\newcommand{\bfX}{\abcbf X}
+\newcommand{\bfY}{\abcbf Y}
+\newcommand{\bfZ}{\abcbf Z}
+%    \end{macrocode}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+% \clearpage
+%    \begin{macro}{\bfa}
+%    \begin{macro}{\bfb}
+%    \begin{macro}{\bfc}
+%    \begin{macro}{\bfd}
+%    \begin{macro}{\bfe}
+%    \begin{macro}{\bff}
+%    \begin{macro}{\bfg}
+%    \begin{macro}{\bfh}
+%    \begin{macro}{\bfi}
+%    \begin{macro}{\bfj}
+%    \begin{macro}{\bfk}
+%    \begin{macro}{\bfl}
+%    \begin{macro}{\bfm}
+%    \begin{macro}{\bfn}
+%    \begin{macro}{\bfo}
+%    \begin{macro}{\bfp}
+%    \begin{macro}{\bfq}
+%    \begin{macro}{\bfr}
+%    \begin{macro}{\bfs}
+%    \begin{macro}{\bft}
+%    \begin{macro}{\bfu}
+%    \begin{macro}{\bfv}
+%    \begin{macro}{\bfw}
+%    \begin{macro}{\bfx}
+%    \begin{macro}{\bfy}
+%    \begin{macro}{\bfz}
+% Lower-case letters are obtained by |\bfa|, |\bfb|, etc. The command |\abcbf| is either |\textbf| or |\bm|, depending on options |abcbf| or |abcbm|. 
+%    \begin{macrocode}
+\newcommand{\bfa}{\abcbf a}
+\newcommand{\bfb}{\abcbf b}
+\newcommand{\bfc}{\abcbf c}
+\newcommand{\bfd}{\abcbf d}
+\newcommand{\bfe}{\abcbf e}
+\newcommand{\bff}{\abcbf f}
+\newcommand{\bfg}{\abcbf g}
+\newcommand{\bfh}{\abcbf h}
+\newcommand{\bfi}{\abcbf i}
+\newcommand{\bfj}{\abcbf j}
+\newcommand{\bfk}{\abcbf k}
+\newcommand{\bfl}{\abcbf l}
+\newcommand{\bfm}{\abcbf m}
+\newcommand{\bfn}{\abcbf n}
+\newcommand{\bfo}{\abcbf o}
+\newcommand{\bfp}{\abcbf p}
+\newcommand{\bfq}{\abcbf q}
+\newcommand{\bfr}{\abcbf r}
+\newcommand{\bfs}{\abcbf s}
+\newcommand{\bft}{\abcbf t}
+\newcommand{\bfu}{\abcbf u}
+\newcommand{\bfv}{\abcbf v}
+\newcommand{\bfw}{\abcbf w}
+\newcommand{\bfx}{\abcbf x}
+\newcommand{\bfy}{\abcbf y}
+\newcommand{\bfz}{\abcbf z}
+%    \end{macrocode}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+% \clearpage
+%    \begin{macro}{\bfalpha}
+%    \begin{macro}{\bfbeta}
+%    \begin{macro}{\bfdelta}
+%    \begin{macro}{\bfepsilon}
+%    \begin{macro}{\bfvarepsilon}
+%    \begin{macro}{\bfzeta}
+%    \begin{macro}{\bfeta}
+%    \begin{macro}{\bftheta}
+%    \begin{macro}{\bfvartheta}
+%    \begin{macro}{\bfgamma}
+%    \begin{macro}{\bfkappa}
+%    \begin{macro}{\bflambda}
+%    \begin{macro}{\bfmu}
+%    \begin{macro}{\bfnu}
+%    \begin{macro}{\bfxi}
+%    \begin{macro}{\bfpi}
+%    \begin{macro}{\bfvarpi}
+%    \begin{macro}{\bfrho}
+%    \begin{macro}{\bfvarrho}
+%    \begin{macro}{\bfsigma}
+%    \begin{macro}{\bfvarsigma}
+%    \begin{macro}{\bftau}
+%    \begin{macro}{\bfupsilon}
+%    \begin{macro}{\bfphi}
+%    \begin{macro}{\bfvarphi}
+%    \begin{macro}{\bfchi}
+%    \begin{macro}{\bfpsi}
+%    \begin{macro}{\bfomega}
+%    \begin{macro}{\bfiota}
+% Lower-case Greek letters are obtained by |\bfalpha|, |\bfbeta|, etc. The command |\greekbf| is either |\boldsymbol| or |\bm|, depending on options |greekbs| or |greekbm|. 
+%    \begin{macrocode}
+\newcommand{\bfalpha}{\greekbf \alpha}
+\newcommand{\bfbeta}{\greekbf \beta}
+\newcommand{\bfdelta}{\greekbf \delta}
+\newcommand{\bfepsilon}{\greekbf \epsilon}
+\newcommand{\bfvarepsilon}{\greekbf \varepsilon}
+\newcommand{\bfzeta}{\greekbf \zeta}
+\newcommand{\bfeta}{\greekbf \eta}
+\newcommand{\bftheta}{\greekbf \theta}
+\newcommand{\bfvartheta}{\greekbf \vartheta}
+\newcommand{\bfgamma}{\greekbf \gamma}
+\newcommand{\bfkappa}{\greekbf \kappa}
+\newcommand{\bflambda}{\greekbf \lambda}
+\newcommand{\bfmu}{\greekbf \mu}
+\newcommand{\bfnu}{\greekbf \nu}
+\newcommand{\bfxi}{\greekbf \xi}
+\newcommand{\bfpi}{\greekbf \pi}
+\newcommand{\bfvarpi}{\greekbf \varpi}
+\newcommand{\bfrho}{\greekbf \rho}
+\newcommand{\bfvarrho}{\greekbf \varrho}
+\newcommand{\bfsigma}{\greekbf \sigma}
+\newcommand{\bfvarsigma}{\greekbf \varsigma}
+\newcommand{\bftau}{\greekbf \tau}
+\newcommand{\bfupsilon}{\greekbf \upsilon}
+\newcommand{\bfphi}{\greekbf \phi}
+\newcommand{\bfvarphi}{\greekbf \varphi}
+\newcommand{\bfchi}{\greekbf \chi}
+\newcommand{\bfpsi}{\greekbf \psi}
+\newcommand{\bfomega}{\greekbf \omega}
+\newcommand{\bfiota}{\greekbf \iota}
+%    \end{macrocode}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \begin{macro}{\bfGamma}
+%    \begin{macro}{\bfDelta}
+%    \begin{macro}{\bfTheta}
+%    \begin{macro}{\bfLambda}
+%    \begin{macro}{\bfXi}
+%    \begin{macro}{\bfPi}
+%    \begin{macro}{\bfSigma}
+%    \begin{macro}{\bfUpsilon}
+%    \begin{macro}{\bfPhi}
+%    \begin{macro}{\bfPsi}
+%    \begin{macro}{\bfOmega}
+% Capital Greek letters are obtained by |\bfGamma|, |\bfDelta|, etc. The command |\greekbf| is either |\boldsymbol| or |\bm|, depending on options |greekbs| or |greekbm|. 
+%    \begin{macrocode}
+\newcommand{\bfGamma}{\greekbf \Gamma}
+\newcommand{\bfDelta}{\greekbf \Delta}
+\newcommand{\bfTheta}{\greekbf \Theta}
+\newcommand{\bfLambda}{\greekbf \Lambda}
+\newcommand{\bfXi}{\greekbf \Xi}
+\newcommand{\bfPi}{\greekbf \Pi}
+\newcommand{\bfSigma}{\greekbf \Sigma}
+\newcommand{\bfUpsilon}{\greekbf \Upsilon}
+\newcommand{\bfPhi}{\greekbf \Phi}
+\newcommand{\bfPsi}{\greekbf \Psi}
+\newcommand{\bfOmega}{\greekbf \Omega}
+%    \end{macrocode}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \begin{macro}{\bfzero}
+% Bold zero. The command |\greekbf| is either |\boldsymbol| or |\bm|, depending on options |greekbs| or |greekbm|. 
+%    \begin{macrocode}
+\newcommand{\bfzero}{\greekbf 0}
+%    \end{macrocode}
+%    \end{macro}
+% \subsection{Statistical operators and concepts}
+% Statistical operators for covariance, expectation and variance.
+%    \begin{macro}{\cov}
+%    \begin{macro}{\E}
+%    \begin{macro}{\V}
+%    \begin{macrocode}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\V}{V}
+%    \end{macrocode}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \begin{macro}{\inas}
+%    \begin{macro}{\inprob}
+%    \begin{macro}{\indist}
+%    \begin{macro}{\plim}
+%    \begin{macrocode}
+\newcommand{\inas}{\overset{a.s.}{\to}}
+\newcommand{\indist}{\overset{d}{\to}}
+\newcommand{\inprob}{\overset{p}{\to}}
+\DeclareMathOperator{\plim}{plim}
+%    \end{macrocode}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+% \subsection{Matrix and mathematical operators}
+%    \begin{macro}{\tr}
+%    \begin{macro}{\vc}
+%    \begin{macro}{\vcs}
+%    \begin{macro}{\vch}
+%    \begin{macro}{\diag}
+%    \begin{macrocode}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\vc}{vec}
+\DeclareMathOperator{\vcs}{vecs}
+\DeclareMathOperator{\vch}{vech}
+\DeclareMathOperator{\diag}{diag}
+%    \end{macrocode}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \end{macro}
+%    \begin{macro}{\argmin}
+%    \begin{macro}{\argmax}
+%    \begin{macrocode}
+\DeclareMathOperator{\argmin}{arg\,min}
+\DeclareMathOperator{\argmax}{arg\,max}
+%    \end{macrocode}
+%    \end{macro}
+%    \end{macro}
+%
+%
+% \Finale
+\endinput
