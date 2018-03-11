@@ -45,6 +45,12 @@
   {}
   {0em}
   {\hspace{-0.4pt}\normalsize}
+\titleformat{name=\subsection}[hang]
+  {\normalsize \bfseries}
+  {}
+  {0em}
+  {}
+ \titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
 \definecolor{darkblue}{rgb}{0.0,0.0,0.3}
 \hypersetup{colorlinks,breaklinks,
             linkcolor=darkblue,urlcolor=darkblue,
@@ -62,7 +68,7 @@
 \newcommand{\forceindent}{\leavevmode{\parindent=1em\indent}}
 \newcommand{\cvheader}[2][Curriculum vitae]{%
 \thispagestyle{empty}%
-\lhead{#1}%
+\lhead{#2}%
  \begin{minipage}[t]{\textwidth}{
              \centering
              {\Large \bfseries #2}\\

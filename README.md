@@ -23,3 +23,5 @@ The class includes a few special macros:
 - `\makecol[<width>]{<year>}{<entry>}` to give left justified year with entry indented to the right. By default, the space until the entry is 0.07, which works well if `<year>` is a single (four digit) year. If it's a range, e.g. `2015--2016`, it needs to be set to e.g. 0.15, like so `\makecol[0.15]{2012--2016}{Ph. D., University, Department}`
 - `\begin{articlelist} ... \end{articlelist}` is an `itemize` list in which there is no item label (as per Dr. Karen's rules), and in which lines following the first are indented. This is useful for distinguishing entries which range over multiple lines.
 - `\begin{reflist} ... \end{reflist}` is another `itemize` list useful for references; there is no indentation nor any labels and it provides reasonable spacing between entries.
+
+## Bugs and improvements
