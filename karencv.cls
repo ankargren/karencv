@@ -16,13 +16,12 @@
 %% LaTeX version 2005/12/01 or later.
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{karencv}
-[2018/03/09 v 0.1 Academic CV]
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+[2018/03/09 v0.1 Academic CV]
+\DeclareOption*{\OptionNotUsed}
 \ProcessOptions\relax
-\LoadClass{article}
+\LoadClass[12pt]{article}
 
-\PassOptionsToPackage{paper=a4paper, left=1in, right=1in, top=1in, bottom=1in}{geometry}
-\PassOptionsToPackage{shortlabels}{enumitem}
+\PassOptionsToPackage{a4paper, margin=1in}{geometry}
 
 \RequirePackage{times}
 \RequirePackage{calc}
@@ -71,7 +70,7 @@
 \lhead{#2}%
  \begin{minipage}[t]{\textwidth}{
              \centering
-             {\Large \bfseries #2}\\
+             {\large \bfseries #2}\\
              #1\\[-0.15\baselineskip]%
                  \rule{\columnwidth}{1pt}}
          \end{minipage}
